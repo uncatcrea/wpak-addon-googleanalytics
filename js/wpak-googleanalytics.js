@@ -11,7 +11,7 @@ define( function( require ) {
 
     googleanalytics.init = function() {
         if( !Phonegap.isLoaded() || "undefined" == typeof Config.options.googleanalytics || "undefined" == typeof window.analytics ) {
-            return;
+            return false;
         }
 
         googleanalytics.tracker = window.analytics;
@@ -25,6 +25,8 @@ define( function( require ) {
         document.addEventListener( 'deviceready', function() {
             googleanalytics.tracker.startTrackerWithId( Config.options.googleanalytics.trackingid );
         }, false );
+
+        return true;
     };
 
     return googleanalytics;
