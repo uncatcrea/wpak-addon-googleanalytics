@@ -10,7 +10,7 @@ define( function( require ) {
     };
 
     googleanalytics.init = function() {
-        if( !Phonegap.isLoaded() || "undefined" == typeof Config.options.googleanalytics || "undefined" == window.analytics ) {
+        if( !Phonegap.isLoaded() || "undefined" == typeof Config.options.googleanalytics || "undefined" == typeof window.analytics ) {
             return;
         }
 
