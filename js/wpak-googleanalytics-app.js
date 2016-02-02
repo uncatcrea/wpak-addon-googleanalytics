@@ -32,7 +32,8 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
 
             // If app version changed, include both old and new version into the event label
             if( info.event == 'app-version-changed' ) {
-                message = info.data.stats.version_diff.last_version + ' => ' + info.data.stats.version_diff.current_version;
+                event_id = 'launch-after-update';
+                message = info.data.stats.version_diff.current_version;
             }
             // app-ready event should be sent as 'launch' event, more explicit
             else if( info.event == 'app-ready' ) {
