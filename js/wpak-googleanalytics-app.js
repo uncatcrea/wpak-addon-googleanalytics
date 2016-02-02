@@ -28,18 +28,22 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
          */
         App.on( 'info', function( info ) {
             var message = '';
+            var event_id = info.event;
 
             // If app version changed, include both old and new version into the event label
             if( info.event == 'app-version-changed' ) {
                 message = info.data.stats.version_diff.last_version + ' => ' + info.data.stats.version_diff.current_version;
             }
-
+            // app-ready event should be sent as 'launch' event, more explicit
+            else if( info.event == 'app-ready' ) {
+                event_id = 'launch';
+            }
             // Do nothing for 'no-content' info event, as an error should have been fired first and this one is unrelevant for Google Analytics
-            if( info.event == 'no-content' ) {
+            else if( info.event == 'no-content' ) {
                 return;
             }
 
-            WpakGoogleAnalytics.tracker.trackEvent( 'app', info.event, message );
+            WpakGoogleAnalytics.tracker.trackEvent( 'app', event_id, message );
         });
 
         /**
