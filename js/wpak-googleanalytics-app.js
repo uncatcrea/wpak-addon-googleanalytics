@@ -51,7 +51,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
          * Track content refresh
          */
         App.on( 'refresh:start', function() {
-            WpakGoogleAnalytics.tracker.trackEvent( 'app', 'refresh' );
+            WpakGoogleAnalytics.tracker.trackEvent( 'app', 'user-refresh' );
         });
     }
 });
