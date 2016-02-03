@@ -53,5 +53,14 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
         App.on( 'refresh:start', function() {
             WpakGoogleAnalytics.tracker.trackEvent( 'app', 'user-refresh' );
         });
+
+        /**
+         * Track clicks to go to some specific screens: single, page or comments
+         */
+        App.on( 'screen:leave', function( current_screen, queried_screen, current_view ) {
+            if( queried_screen.screen_type == 'comments' || queried_screen.screen_type == 'single' || queried_screen.screen_type == 'page' ) {
+                WpakGoogleAnalytics.tracker.trackEvent( queried_screen.screen_type, 'display', queried_screen.item_id );
+            }
+        });
     }
 });
