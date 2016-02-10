@@ -52,6 +52,10 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
                 category = 'comments';
                 event_id = 'comment-posted';
             }
+            else if( info.event == 'component:get-more' ) {
+                category = 'archive';
+                event_id = 'more-button';
+            }
             // Do nothing for 'no-content' info event, as an error should have been fired first and this one is unrelevant for Google Analytics
             else if( info.event == 'no-content' ) {
                 return;
