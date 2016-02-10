@@ -29,6 +29,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
         App.on( 'info', function( info ) {
             var message = '';
             var event_id = info.event;
+            var category = 'app';
 
             // If app version changed, include both old and new version into the event label
             if( info.event == 'app-version-changed' ) {
@@ -39,12 +40,24 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
             else if( info.event == 'app-ready' ) {
                 event_id = 'launch';
             }
+            else if( info.event == 'auth:user-login' ) {
+                event_id = 'user-login';
+            }
+            // Send the type of logout with the event: normal, user-connection-expired, user-not-authenticated or unknown
+            else if( info.event == 'auth:user-logout' ) {
+                event_id = 'user-logout';
+                message = info.data.logout_type;
+            }
+            else if( info.event == 'comment:posted' ) {
+                category = 'comments';
+                event_id = 'comment-posted';
+            }
             // Do nothing for 'no-content' info event, as an error should have been fired first and this one is unrelevant for Google Analytics
             else if( info.event == 'no-content' ) {
                 return;
             }
 
-            WpakGoogleAnalytics.tracker.trackEvent( 'app', event_id, message );
+            WpakGoogleAnalytics.tracker.trackEvent( category, event_id, message );
         });
 
         /**
