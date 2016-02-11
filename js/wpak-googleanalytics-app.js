@@ -1,4 +1,4 @@
-define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleanalytics' ], function( App, WpakGoogleAnalytics ) {
+define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleanalytics', 'core/lib/hooks' ], function( App, WpakGoogleAnalytics, Hooks ) {
     var track = WpakGoogleAnalytics.init();
 
     if( track ) {
@@ -13,70 +13,104 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
          * Track error events
          */
         App.on( 'error', function( error ) {
-            var message = '';
+            var event_args = {
+                category: 'app',
+                action: error.event,
+                label: ''
+            };
+            var context = {
+                event: 'error',
+                args: [ error ]
+            };
 
             // Include the error message as event label if it's available
             if( typeof error.data != "undefined" && typeof error.data.message != "undefined" ) {
-                message = error.data.message;
+                event_args.label = error.data.message;
             }
 
-            WpakGoogleAnalytics.tracker.trackEvent( 'app', error.event, message );
+            WpakGoogleAnalytics.trackEvent( event_args, context );
         });
 
         /**
          * Track info events
          */
         App.on( 'info', function( info ) {
-            var message = '';
-            var event_id = info.event;
-            var category = 'app';
+            var event_args = {
+                category: 'app',
+                action: info.event,
+                label: ''
+            };
+            var context = {
+                event: 'info',
+                args: [ info ]
+            };
 
             // If app version changed, include both old and new version into the event label
             if( info.event == 'app-version-changed' ) {
-                event_id = 'launch-after-update';
-                message = info.data.stats.version_diff.current_version;
+                event_args.action = 'launch-after-update';
+                event_args.label = info.data.stats.version_diff.current_version;
             }
             // app-ready event should be sent as 'launch' event, more explicit
             else if( info.event == 'app-ready' ) {
-                event_id = 'launch';
+                event_args.action = 'launch';
             }
             else if( info.event == 'auth:user-login' ) {
-                event_id = 'user-login';
+                event_args.action = 'user-login';
             }
             // Send the type of logout with the event: normal, user-connection-expired, user-not-authenticated or unknown
             else if( info.event == 'auth:user-logout' ) {
-                event_id = 'user-logout';
-                message = info.data.logout_type;
+                event_args.action = 'user-logout';
+                event_args.label = info.data.logout_type;
             }
             else if( info.event == 'comment:posted' ) {
-                category = 'comments';
-                event_id = 'comment-posted';
+                event_args.category = 'comments';
+                event_args.action = 'comment-posted';
             }
             else if( info.event == 'component:get-more' ) {
-                category = 'archive';
-                event_id = 'more-button';
+                event_args.category = 'archive';
+                event_args.action = 'more-button';
             }
             // Do nothing for 'no-content' info event, as an error should have been fired first and this one is unrelevant for Google Analytics
             else if( info.event == 'no-content' ) {
                 return;
             }
 
-            WpakGoogleAnalytics.tracker.trackEvent( category, event_id, message );
+            WpakGoogleAnalytics.trackEvent( event_args, context );
         });
 
         /**
          * Track content refresh
          */
         App.on( 'refresh:start', function() {
-            WpakGoogleAnalytics.tracker.trackEvent( 'app', 'user-refresh' );
+            var event_args = {
+                category: 'app',
+                action: 'user-refresh',
+                label: ''
+            };
+            var context = {
+                event: 'refresh:start',
+                args: []
+            };
+
+            WpakGoogleAnalytics.trackEvent( event_args, context );
         });
 
         /**
          * Track clicks to go to some specific screens: single, page or comments
          */
         App.on( 'screen:leave', function( current_screen, queried_screen, current_view ) {
+            var event_args = {
+                category: queried_screen.screen_type,
+                action: 'display',
+                label: queried_screen.item_id
+            };
+            var context = {
+                event: 'screen:leave',
+                args: [ current_screen, queried_screen, current_view ]
+            };
+
             if( queried_screen.screen_type == 'comments' || queried_screen.screen_type == 'single' || queried_screen.screen_type == 'page' ) {
-                WpakGoogleAnalytics.tracker.trackEvent( queried_screen.screen_type, 'display', queried_screen.item_id );
+                WpakGoogleAnalytics.trackEvent( event_args, context );
             }
         });
     }
