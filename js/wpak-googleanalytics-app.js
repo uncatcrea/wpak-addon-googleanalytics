@@ -6,7 +6,37 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
          * Track page views
          */
         App.on( 'screen:showed', function( current_screen, current_view ) {
-            // WpakGoogleAnalytics.tracker.trackView( 'Screen Title' )
+            var screen_object = App.getCurrentScreenObject();
+            var url = '(undefined)';
+
+            switch( screen_object.screen_type ) {
+                case 'list':
+                    // "/archive/last-posts"
+                    url = '/archive/' + screen_object.component_id;
+                    break;
+                case 'single':
+                    // "/single/8/this-is-a-post"
+                    url = '/single/' + screen_object.id + '/' + screen_object.slug;
+                    break;
+                case 'comments':
+                    // "/single/8/this-is-a-post/comments"
+                    url = '/single/' + screen_object.post.id + '/' + screen_object.post.slug + '/comments';
+                    break;
+                case 'page':
+                    // "/page/component-slug-for-this-page/7/about-us"
+                    // TODO: replace :component_id
+                    url = '/page/:component_id/' + screen_object.id + '/' + screen_object.slug;
+                    break;
+                case 'custom-page':
+                    // "/custom-page/login-page"
+                    url = '/custom-page/' + screen_object.id;
+                    break;
+                case 'custom-component':
+                    // TODO: complete this case
+                    break;
+            }
+
+            WpakGoogleAnalytics.tracker.trackView( url );
         });
 
         /**
