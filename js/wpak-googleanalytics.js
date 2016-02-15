@@ -9,6 +9,8 @@ define( function( require ) {
         tracker: {}
     };
 
+    var initialized = false;
+
     /**
      * Initialize Google Analytics plugin:
      *  - Expose tracker object to be used within plugins and themes
@@ -17,9 +19,15 @@ define( function( require ) {
      * @returns {Boolean} True when everything went fine, false otherwise
      */
     googleanalytics.init = function() {
+        if( initialized ) {
+            return true;
+        }
+
         if( !Phonegap.isLoaded() || "undefined" == typeof Config.options.googleanalytics || "undefined" == typeof window.analytics ) {
             return false;
         }
+
+        initialized = true;
 
         // Expose Google Analytics plugin object for themes and plugins to use its methods, especially trackView and trackEvent
         for ( var property in window.analytics ) {
