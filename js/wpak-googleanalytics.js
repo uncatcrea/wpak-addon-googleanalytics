@@ -41,16 +41,21 @@ define( function( require ) {
     /**
      * Track an event
      *
-     * @param {Object} event_args   Should contain category, action, label, value variables to be sent to Google Analytics
+     * @param {String} category     Should contain category variable to be sent to Google Analytics
+     * @param {String} action       Should contain action variable to be sent to Google Analytics
+     * @param {String} label        Should contain label variable to be sent to Google Analytics
+     * @param {Integer} value       Should contain value variable to be sent to Google Analytics
      * @param {Object} context      Should contain event (String describing triggered event) and args (Array containing all context data, could be empty)
      *
      * @TODO Put this method into googleanalytics.tracker object
      */
-    googleanalytics.trackEvent = function( event_args, context ) {
-        var category = 'app';
-        var action = '';
-        var label = '';
-        var value = null;
+    googleanalytics.trackEvent = function( category, action, label, value, context ) {
+        var event_args = {
+            category: category,
+            action: action,
+            label: label,
+            value: value,
+        };
 
         // Filter event args before sending them to Analytics
         event_args = Hooks.applyFilters( 'wpak-addon-googleanalytics-event-args', event_args, [ context ] );
@@ -67,6 +72,10 @@ define( function( require ) {
         if( event_args.hasOwnProperty( 'value' ) ) {
             // Google Analytics only allows integer values, otherwise the event isn't stored
             value = parseInt( event_args.value );
+        }
+        // Check if value is a real number or not
+        if( isNaN( value ) ) {
+            value = null;
         }
 
         googleanalytics.tracker.trackEvent( category, action, label, value );
