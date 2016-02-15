@@ -6,7 +6,7 @@ define( function( require ) {
     var Hooks       = require( 'core/lib/hooks' );
 
     var googleanalytics = {
-        tracker: null
+        tracker: {}
     };
 
     /**
@@ -22,8 +22,12 @@ define( function( require ) {
         }
 
         // Expose Google Analytics plugin object for themes and plugins to use its methods, especially trackView and trackEvent
-        // TODO: don't expose this object directly, wrap some methods first
-        googleanalytics.tracker = window.analytics;
+        for ( var property in window.analytics ) {
+            // Don't expose this object directly, wrap some methods first
+            if ( !googleanalytics.tracker.hasOwnProperty( property ) ) {
+                googleanalytics.tracker[property] = window.analytics[property];
+            }
+        }
 
         // Activate debug mode
         if( Config.debug_mode == 'on' ) {
@@ -46,10 +50,8 @@ define( function( require ) {
      * @param {String} label        Should contain label variable to be sent to Google Analytics
      * @param {Integer} value       Should contain value variable to be sent to Google Analytics
      * @param {Object} context      Should contain event (String describing triggered event) and args (Array containing all context data, could be empty)
-     *
-     * @TODO Put this method into googleanalytics.tracker object
      */
-    googleanalytics.trackEvent = function( category, action, label, value, context ) {
+    googleanalytics.tracker.trackEvent = function( category, action, label, value, context ) {
         var event_args = {
             category: category,
             action: action,
@@ -78,7 +80,7 @@ define( function( require ) {
             value = null;
         }
 
-        googleanalytics.tracker.trackEvent( category, action, label, value );
+        window.analytics.trackEvent( category, action, label, value );
     }
 
     return googleanalytics;

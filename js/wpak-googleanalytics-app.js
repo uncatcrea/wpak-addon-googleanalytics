@@ -27,7 +27,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
                 event_args.label = error.data.message;
             }
 
-            WpakGoogleAnalytics.trackEvent( category, action, label, value, context );
+            WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
         });
 
         /**
@@ -68,12 +68,15 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
                 category = 'archive';
                 action = 'more-button';
             }
+            else if( info.event == 'open-window' ) {
+                label = info.data[0];
+            }
             // Do nothing for 'no-content' info event, as an error should have been fired first and this one is unrelevant for Google Analytics
             else if( info.event == 'no-content' ) {
                 return;
             }
 
-            WpakGoogleAnalytics.trackEvent( category, action, label, value, context );
+            WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
         });
 
         /**
@@ -89,7 +92,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
                 args: []
             };
 
-            WpakGoogleAnalytics.trackEvent( category, action, label, value, context );
+            WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
         });
 
         /**
@@ -106,7 +109,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
             };
 
             if( queried_screen.screen_type == 'comments' || queried_screen.screen_type == 'single' || queried_screen.screen_type == 'page' ) {
-                WpakGoogleAnalytics.trackEvent( category, action, label, value, context );
+                WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
             }
         });
     }
