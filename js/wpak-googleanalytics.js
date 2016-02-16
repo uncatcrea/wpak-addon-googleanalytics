@@ -6,7 +6,8 @@ define( function( require ) {
     var Hooks       = require( 'core/lib/hooks' );
 
     var googleanalytics = {
-        tracker: {}
+        tracker: {},
+        trackErrors: true
     };
 
     var initialized = false;
@@ -40,6 +41,11 @@ define( function( require ) {
         // Activate debug mode
         if( Config.debug_mode == 'on' ) {
             googleanalytics.tracker.debugMode();
+        }
+
+        // Update trackErrors value according to app config
+        if( !Config.options.googleanalytics.hasOwnProperty( 'track_errors' ) || Config.options.googleanalytics.track_errors != 1 ) {
+            googleanalytics.trackErrors = false;
         }
 
         // Register this app with the given tracking ID
@@ -89,7 +95,7 @@ define( function( require ) {
         }
 
         window.analytics.trackEvent( category, action, label, value );
-    }
+    };
 
     return googleanalytics;
 });

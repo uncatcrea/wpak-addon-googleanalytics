@@ -38,26 +38,28 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
             WpakGoogleAnalytics.tracker.trackView( url );
         });
 
-        /**
-         * Track error events
-         */
-        App.on( 'error', function( error ) {
-            var category = 'app';
-            var action = error.event;
-            var label = '';
-            var value = null;
-            var context = {
-                event: 'error',
-                args: [ error ]
-            };
+        if( WpakGoogleAnalytics.trackErrors ) {
+            /**
+             * Track error events
+             */
+            App.on( 'error', function( error ) {
+                var category = 'app';
+                var action = error.event;
+                var label = '';
+                var value = null;
+                var context = {
+                    event: 'error',
+                    args: [ error ]
+                };
 
-            // Include the error message as event label if it's available
-            if( typeof error.core_data != "undefined" && typeof error.core_data.message != "undefined" ) {
-                event_args.label = error.core_data.message;
-            }
+                // Include the error message as event label if it's available
+                if( typeof error.core_data != "undefined" && typeof error.core_data.message != "undefined" ) {
+                    event_args.label = error.core_data.message;
+                }
 
-            WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
-        });
+                WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
+            });
+        }
 
         /**
          * Track info events
