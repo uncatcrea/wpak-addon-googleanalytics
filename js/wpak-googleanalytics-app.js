@@ -97,9 +97,6 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
                 category = 'archive';
                 action = 'more-button';
             }
-            else if( info.event == 'open-window' ) {
-                label = info.data[0];
-            }
             // Do nothing for 'no-content' info event, as an error should have been fired first and this one is unrelevant for Google Analytics
             else if( info.event == 'no-content' ) {
                 return;
