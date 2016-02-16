@@ -24,8 +24,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
                     break;
                 case 'page':
                     // "/page/component-slug-for-this-page/7/about-us"
-                    // TODO: replace :component_id
-                    url = '/page/:component_id/' + screen_object.id + '/' + screen_object.slug;
+                    url = '/page/' + screen_object.component.id + '/' + screen_object.id + '/' + screen_object.slug;
                     break;
                 case 'custom-page':
                     // "/custom-page/login-page"
