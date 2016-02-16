@@ -52,8 +52,8 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
             };
 
             // Include the error message as event label if it's available
-            if( typeof error.data != "undefined" && typeof error.data.message != "undefined" ) {
-                event_args.label = error.data.message;
+            if( typeof error.core_data != "undefined" && typeof error.core_data.message != "undefined" ) {
+                event_args.label = error.core_data.message;
             }
 
             WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
@@ -75,7 +75,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
             // If app version changed, include both old and new version into the event label
             if( info.event == 'app-version-changed' ) {
                 action = 'launch-after-update';
-                label = info.data.stats.version_diff.current_version;
+                label = info.core_data.stats.version_diff.current_version;
             }
             // app-ready event should be sent as 'launch' event, more explicit
             else if( info.event == 'app-ready' ) {
@@ -87,7 +87,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
             // Send the type of logout with the event: normal, user-connection-expired, user-not-authenticated or unknown
             else if( info.event == 'auth:user-logout' ) {
                 action = 'user-logout';
-                label = info.data.logout_type;
+                label = info.core_data.logout_type;
             }
             else if( info.event == 'comment:posted' ) {
                 category = 'comments';
