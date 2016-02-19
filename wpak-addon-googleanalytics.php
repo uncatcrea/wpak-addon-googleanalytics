@@ -63,7 +63,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
          */
         public static function wpak_default_phonegap_build_plugins( $default_plugins, $export_type, $app_id ) {
             if( WpakAddons::addon_activated_for_app( self::slug, $app_id ) ) {
-                $default_plugins['cordova-plugin-google-analytics'] = array( 'version' => '0.8.1', 'source' => 'npm' );
+                $default_plugins['cordova-plugin-google-analytics'] = array( 'spec' => '0.8.1', 'source' => 'npm' );
             }
 
             return $default_plugins;
