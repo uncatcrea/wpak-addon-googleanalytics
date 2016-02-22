@@ -100,6 +100,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
             else if( info.event == 'comment:posted' ) {
                 category = 'comments';
                 action = 'comment-posted';
+                label = info.core_data.post_id;
             }
             else if( info.event == 'component:get-more' ) {
                 category = 'archive';
