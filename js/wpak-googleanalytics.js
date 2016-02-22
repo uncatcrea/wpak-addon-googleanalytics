@@ -97,5 +97,18 @@ define( function( require ) {
         window.analytics.trackEvent( category, action, label, value );
     };
 
+    /**
+     * Track a page view
+     *
+     * @param {String} url          Should contain url variable to be sent to Google Analytics
+     * @param {Object} context      Should contain current_screen and current_view objects in corresponding attributes
+     */
+    googleanalytics.tracker.trackView = function( url, context ) {
+        // Filter url before sending it to Analytics
+        url = Hooks.applyFilters( 'wpak-addon-googleanalytics-page-view-url', url, [ context ] );
+
+        window.analytics.trackView( url );
+    };
+
     return googleanalytics;
 });

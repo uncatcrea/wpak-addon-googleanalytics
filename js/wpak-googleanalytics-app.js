@@ -36,7 +36,12 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
                     break;
             }
 
-            WpakGoogleAnalytics.tracker.trackView( url );
+            var context = {
+                'current_screen': current_screen,
+                'current_view': current_view
+            };
+
+            WpakGoogleAnalytics.tracker.trackView( url, context );
         });
 
         if( WpakGoogleAnalytics.trackErrors ) {
