@@ -31,7 +31,8 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
                     url = '/custom-page/' + screen_object.id;
                     break;
                 case 'custom-component':
-                    // TODO: complete this case
+                    // "/custom/my-custom-component"
+                    url = '/custom/' + screen_object.component_id;
                     break;
             }
 
