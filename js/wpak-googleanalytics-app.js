@@ -60,7 +60,7 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
 
                 // Include the error message as event label if it's available
                 if( typeof error.core_data != "undefined" && typeof error.core_data.message != "undefined" ) {
-                    event_args.label = error.core_data.message;
+                    label = error.core_data.message;
                 }
 
                 WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
