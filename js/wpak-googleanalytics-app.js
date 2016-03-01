@@ -49,8 +49,8 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
              * Track error events
              */
             App.on( 'error', function( error ) {
-                var category = 'app';
-                var action = error.event;
+                var category = 'feedback';
+                var action = 'error/' + error.event;
                 var label = '';
                 var value = null;
                 var context = {
@@ -71,8 +71,8 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
          * Track info events
          */
         App.on( 'info', function( info ) {
-            var category = 'app';
-            var action = info.event;
+            var category = 'feedback';
+            var action = 'info/' + info.event;
             var label = '';
             var value = null;
             var context = {
