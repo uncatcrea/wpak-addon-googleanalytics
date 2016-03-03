@@ -147,5 +147,21 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
                 WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
             }
         });
+
+        /**
+         * Track click on "back" button, or any navigation to previous screen called thanks to ThemeApp.navigateToPreviousScreen()
+         */
+        App.on( 'navigate:previous-screen', function( previous_screen, current_screen, previous_screen_link ) {
+            var category = 'app';
+            var action = 'navigate-to-previous-screen';
+            var label = '';
+            var value = null;
+            var context = {
+                event: 'navigate:previous-screen',
+                args: [ previous_screen, current_screen, previous_screen_link ]
+            };
+
+            WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
+        });
     }
 });
