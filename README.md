@@ -57,6 +57,12 @@ Google Analytics Addon for WP-AppKit is shipped with a default behaviour and wil
     * Category = page
     * Action = display
     * Label = _post ID_ (ex: 42)
+* More Articles Display: triggered each time an user clicks on a "Get more" button within a post list component
+    * Category = archive
+    * Action = more-button
+* Navigate to Previous Screen: triggered each time an user clicks on "back" button, or when `ThemeApp.navigateToPreviousScreen()` is called directly
+    * Category = app
+    * Action = navigate-to-previous-screen
 * User Login: triggered each time an user correctly logs in
     * Category = app
     * Action = user-login
