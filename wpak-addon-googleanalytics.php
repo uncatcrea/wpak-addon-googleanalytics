@@ -24,6 +24,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
             add_filter( 'wpak_addons', array( __CLASS__, 'wpak_addons' ) );
             add_filter( 'wpak_default_phonegap_build_plugins', array( __CLASS__, 'wpak_default_phonegap_build_plugins' ), 10, 3 );
             add_action( 'plugins_loaded', array( __CLASS__, 'plugins_loaded' ) );
+			add_filter( 'wpak_licenses', array( __CLASS__, 'add_license' ) );
         }
 
         /**
@@ -63,7 +64,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
          */
         public static function wpak_default_phonegap_build_plugins( $default_plugins, $export_type, $app_id ) {
             if( WpakAddons::addon_activated_for_app( self::slug, $app_id ) ) {
-                $default_plugins['cordova-plugin-google-analytics'] = array( 'version' => '0.8.1', 'source' => 'npm' );
+                $default_plugins['cordova-plugin-google-analytics'] = array( 'spec' => '0.8.1', 'source' => 'npm' );
             }
 
             return $default_plugins;
@@ -78,6 +79,22 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
             load_plugin_textdomain( self::i18n_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
         }
 
+        /**
+         * Register license management for this addon.
+         * 
+         * @param array $licenses Licenses array given by WP-AppKit's core.
+         * @return array
+         */
+        public static function add_license( $licenses ) {
+            $licenses[] = array(
+                'file' => __FILE__,
+                'item_name' => 'WP-AppKit Google Analytics Addon',
+                'version' => '0.1',
+                'author' => 'Uncategorized Creations',
+                //'item_id' => 3705
+            );
+            return $licenses;
+        }
     }
 
     WpAppKitGoogleAnalytics::hooks();

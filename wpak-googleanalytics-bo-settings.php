@@ -49,6 +49,11 @@ if ( !class_exists( 'WpakGoogleAnalyticsAdmin' ) ) {
                     <input id="wpak_googleanalytics_trackingid" type="text" name="wpak_app_options[googleanalytics][trackingid]" value="<?php echo $options['googleanalytics']['trackingid'] ?>" />
                     <span class="description"><?php // TODO: add a description here? _e( '', WpAppKitGoogleAnalytics::i18n_domain ) ?></span>
                 </div>
+                <div class="field-group fix-align">
+                    <label for="wpak_googleanalytics_track_errors"><?php _e( 'Track errors', WpAppKitGoogleAnalytics::i18n_domain ) ?></label>
+                    <input id="wpak_googleanalytics_track_errors" type="checkbox" name="wpak_app_options[googleanalytics][track_errors]" <?php echo !empty( $options['googleanalytics']['track_errors'] ) ? 'checked="checked"' : '' ?> value="1" />
+                    <span class="description"><?php // TODO: add a description here? _e( '', WpAppKitGoogleAnalytics::i18n_domain ) ?></span>
+                </div>
             </div>
             <?php
         }
@@ -65,6 +70,7 @@ if ( !class_exists( 'WpakGoogleAnalyticsAdmin' ) ) {
         public static function wpak_default_options( $default ) {
             $default['googleanalytics'] = array(
                 'trackingid' => '',
+                'track_errors' => true,
             );
 
             return $default;
