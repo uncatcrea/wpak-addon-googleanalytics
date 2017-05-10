@@ -89,7 +89,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
             $licenses[] = array(
                 'file' => __FILE__,
                 'item_name' => 'WP-AppKit Google Analytics Addon',
-                'version' => '0.1',
+                'version' => '1.0.0',
                 'author' => 'Uncategorized Creations',
                 //'item_id' => 3705
             );
