@@ -79,19 +79,22 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
             load_plugin_textdomain( self::i18n_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
         }
 
-		/**
-		 * Register license management for this addon.
-		 * 
-		 * @param array $licenses Licenses array given by WP-AppKit's core.
-		 * @return array
-		 */
-		public static function add_license( $licenses ) {
-			$licenses[] = array(
-				'product_name' => 'WP AppKit Google Analytics Addon',
-				'product_slug' => 'wpak-addon-googleanalytics'
-			);
-			return $licenses;
-		}
+        /**
+         * Register license management for this addon.
+         * 
+         * @param array $licenses Licenses array given by WP-AppKit's core.
+         * @return array
+         */
+        public static function add_license( $licenses ) {
+            $licenses[] = array(
+                'file' => __FILE__,
+                'item_name' => 'WP-AppKit Google Analytics Addon',
+                'version' => '0.1',
+                'author' => 'Uncategorized Creations',
+                //'item_id' => 3705
+            );
+            return $licenses;
+        }
     }
 
     WpAppKitGoogleAnalytics::hooks();
