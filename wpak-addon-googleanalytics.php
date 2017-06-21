@@ -2,7 +2,7 @@
 /*
   Plugin Name: WP-AppKit Google Analytics Addon
   Description: Track WP-AppKit application user statistics through Google Analytics
-  Version: 1.0.1
+  Version: 1.1.0
  */
 
 if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
@@ -81,7 +81,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
 
         /**
          * Register license management for this addon.
-         * 
+         *
          * @param array $licenses Licenses array given by WP-AppKit's core.
          * @return array
          */
