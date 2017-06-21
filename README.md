@@ -4,7 +4,7 @@ This addon currently supports and is tested with iOS and Android only.
 
 ## HOW TO SETUP
 First things first, this addon only works with Google Analytics: https://analytics.google.com  
-You can see its documentation here for more details and features about mobile app configuration within Google Analytics: https://support.google.com/analytics/answer/2614741?hl=en&ref_topic=2587085
+You can see its documentation here for more details and features about mobile app configuration within Google Analytics: https://support.google.com/analytics/answer/2587086?hl=en
 
 To be able to start tracking your WP-AppKit users, you only need a tracking ID associated with your Analytics app.
 
