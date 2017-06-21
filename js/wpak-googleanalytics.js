@@ -24,17 +24,17 @@ define( function( require ) {
             return true;
         }
 
-        if( !Phonegap.isLoaded() || "undefined" == typeof Config.options.googleanalytics || "undefined" == typeof window.analytics ) {
+        if( !Phonegap.isLoaded() || "undefined" == typeof Config.options.googleanalytics || "undefined" == typeof window.ga ) {
             return false;
         }
 
         initialized = true;
 
         // Expose Google Analytics plugin object for themes and plugins to use its methods, especially trackView and trackEvent
-        for ( var property in window.analytics ) {
+        for ( var property in window.ga ) {
             // Don't expose this object directly, wrap some methods first
             if ( !googleanalytics.tracker.hasOwnProperty( property ) ) {
-                googleanalytics.tracker[property] = window.analytics[property];
+                googleanalytics.tracker[property] = window.ga[property];
             }
         }
 
@@ -94,7 +94,7 @@ define( function( require ) {
             value = null;
         }
 
-        window.analytics.trackEvent( category, action, label, value );
+        window.ga.trackEvent( category, action, label, value );
     };
 
     /**
@@ -107,7 +107,7 @@ define( function( require ) {
         // Filter url before sending it to Analytics
         url = Hooks.applyFilters( 'wpak-addon-googleanalytics-page-view-url', url, [ context ] );
 
-        window.analytics.trackView( url );
+        window.ga.trackView( url );
     };
 
     return googleanalytics;
