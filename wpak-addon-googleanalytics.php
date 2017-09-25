@@ -1,6 +1,6 @@
 <?php
 /*
-  Plugin Name: WP-AppKit Google Analytics Addon
+  Plugin Name: Google Analytics for WP-AppKit
   Description: Track WP-AppKit application user statistics through Google Analytics
   Version: 1.1.0
  */
@@ -12,6 +12,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
      */
     class WpAppKitGoogleAnalytics {
 
+    	const name = 'Google Analytics for WP-AppKit';
         const slug = 'wpak-addon-googleanalytics';
         const i18n_domain = 'wpak-addon-googleanalytics';
 
@@ -37,7 +38,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
          * @return array            $addons            Addons with Google Analytics (this one).
          */
         public static function wpak_addons( $addons ) {
-            $addon = new WpakAddon( 'WP AppKit Google Analytics', self::slug );
+            $addon = new WpakAddon( self::name, self::slug );
 
             $addon->set_location( __FILE__ );
 
@@ -88,8 +89,8 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
         public static function add_license( $licenses ) {
             $licenses[] = array(
                 'file' => __FILE__,
-                'item_name' => 'WP-AppKit Google Analytics Addon',
-                'version' => '1.0.1',
+                'item_name' => self::name,
+                'version' => '1.1.0',
                 'author' => 'Uncategorized Creations',
             );
             return $licenses;
