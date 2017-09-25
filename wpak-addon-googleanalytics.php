@@ -1,7 +1,7 @@
 <?php
 /*
   Plugin Name: Google Analytics for WP-AppKit
-  Description: Track WP-AppKit application user statistics through Google Analytics
+  Description: A powerful and easy way to track app's usage
   Version: 1.1.0
  */
 
