@@ -1,8 +1,8 @@
 <?php
 /*
-  Plugin Name: WP-AppKit Google Analytics Addon
-  Description: Track WP-AppKit application user statistics through Google Analytics
-  Version: 1.0.1
+  Plugin Name: Google Analytics for WP-AppKit
+  Description: A powerful and easy way to track app's usage
+  Version: 1.1.0
  */
 
 if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
@@ -12,6 +12,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
      */
     class WpAppKitGoogleAnalytics {
 
+    	const name = 'Google Analytics for WP-AppKit';
         const slug = 'wpak-addon-googleanalytics';
         const i18n_domain = 'wpak-addon-googleanalytics';
 
@@ -37,7 +38,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
          * @return array            $addons            Addons with Google Analytics (this one).
          */
         public static function wpak_addons( $addons ) {
-            $addon = new WpakAddon( 'WP AppKit Google Analytics', self::slug );
+            $addon = new WpakAddon( self::name, self::slug );
 
             $addon->set_location( __FILE__ );
 
@@ -64,7 +65,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
          */
         public static function wpak_default_phonegap_build_plugins( $default_plugins, $export_type, $app_id ) {
             if( WpakAddons::addon_activated_for_app( self::slug, $app_id ) ) {
-                $default_plugins['cordova-plugin-google-analytics'] = array( 'spec' => '0.8.1', 'source' => 'npm' );
+                $default_plugins['cordova-plugin-google-analytics'] = array( 'spec' => '1.8.3', 'source' => 'npm' );
             }
 
             return $default_plugins;
@@ -81,15 +82,15 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
 
         /**
          * Register license management for this addon.
-         * 
+         *
          * @param array $licenses Licenses array given by WP-AppKit's core.
          * @return array
          */
         public static function add_license( $licenses ) {
             $licenses[] = array(
                 'file' => __FILE__,
-                'item_name' => 'WP-AppKit Google Analytics Addon',
-                'version' => '1.0.1',
+                'item_name' => self::name,
+                'version' => '1.1.0',
                 'author' => 'Uncategorized Creations',
             );
             return $licenses;
