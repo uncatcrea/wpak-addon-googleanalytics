@@ -14,10 +14,6 @@ if ( !class_exists( 'WpakGoogleAnalyticsAdmin' ) ) {
             if( is_admin() ) {
                 add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
                 add_filter( 'wpak_default_options', array( __CLASS__, 'wpak_default_options' ) );
-
-	            add_action( 'postbox_classes_wpak_apps_wpak_googleanalytics_config', array( 'WpakApps', 'add_platform_specific_class' ) );
-	            add_action( 'postbox_classes_wpak_apps_wpak_googleanalytics_config', array( 'WpakApps', 'add_ios_class' ) );
-	            add_action( 'postbox_classes_wpak_apps_wpak_googleanalytics_config', array( 'WpakApps', 'add_android_class' ) );
             }
         }
 
