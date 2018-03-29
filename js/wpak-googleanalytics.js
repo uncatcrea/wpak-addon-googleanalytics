@@ -24,7 +24,23 @@ define( function( require ) {
             return true;
         }
 
-        if( !Phonegap.isLoaded() || "undefined" == typeof Config.options.googleanalytics || "undefined" == typeof window.ga ) {
+        if( Config.app_platform == 'pwa' ) {
+            window.GoogleAnalyticsObject = "ga";
+            window.ga = function () {
+                ( window.ga.q = window.ga.q || [] ).push( arguments );
+            };
+            window.ga.l = Date.now();
+            window.ga( "create", Config.options.googleanalytics.trackingid, "auto" );
+
+            var analyticsUrl = 'https://www.google-analytics.com/analytics.js';
+            if( Config.debug_mode == 'on' ) {
+                analyticsUrl = 'https://www.google-analytics.com/analytics_debug.js';
+            }
+
+            require( [analyticsUrl] );
+        }
+
+        if( ( Config.app_platform != 'pwa' && !Phonegap.isLoaded() ) || "undefined" == typeof Config.options.googleanalytics || "undefined" == typeof window.ga ) {
             return false;
         }
 
@@ -39,7 +55,7 @@ define( function( require ) {
         }
 
         // Activate debug mode
-        if( Config.debug_mode == 'on' ) {
+        if( Config.debug_mode == 'on' && "undefined" !== typeof googleanalytics.tracker.debugMode ) {
             googleanalytics.tracker.debugMode();
         }
 
@@ -94,7 +110,11 @@ define( function( require ) {
             value = null;
         }
 
-        window.ga.trackEvent( category, action, label, value );
+        if( "undefined" === typeof window.ga.trackView ) {
+            window.ga( 'send', 'event', category, action, label, value );
+        } else {
+            window.ga.trackEvent( category, action, label, value );
+        }
     };
 
     /**
@@ -107,7 +127,11 @@ define( function( require ) {
         // Filter url before sending it to Analytics
         url = Hooks.applyFilters( 'wpak-addon-googleanalytics-page-view-url', url, [ context ] );
 
-        window.ga.trackView( url );
+        if( "undefined" === typeof window.ga.trackView ) {
+            window.ga( 'send', 'pageview', url );
+        } else {
+            window.ga.trackView( url );
+        }
     };
 
     return googleanalytics;
