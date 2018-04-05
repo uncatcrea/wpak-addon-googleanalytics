@@ -39,7 +39,7 @@ if ( !class_exists( 'WpAppKitGoogleAnalytics' ) ) {
          * @return array            $addons            Addons with Google Analytics (this one).
          */
         public static function wpak_addons( $addons ) {
-            $addon = new WpakAddon( self::name, self::slug );
+            $addon = new WpakAddon( self::name, self::slug, array( 'ios', 'android', 'pwa' ) );
 
             $addon->set_location( __FILE__ );
 
