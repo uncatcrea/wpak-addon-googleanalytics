@@ -1,7 +1,22 @@
-define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleanalytics', 'core/lib/hooks' ], function( App, WpakGoogleAnalytics, Hooks ) {
+define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleanalytics', 'root/config' ], function( App, WpakGoogleAnalytics, Config ) {
     var track = WpakGoogleAnalytics.init();
 
     if( track ) {
+        /**
+         * Send an event for app visibility change.
+         *
+         * @param state
+         */
+        function sendVisibilityEvent( state ) {
+            var category = 'app';
+            var action = 'visibility-change';
+            var label = state;
+            var value = null;
+            var context = {};
+
+            WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
+        }
+
         /**
          * Track page views
          */
@@ -163,5 +178,18 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
 
             WpakGoogleAnalytics.tracker.trackEvent( category, action, label, value, context );
         });
+
+        /**
+         * Track app visibility changes. For example app going to background or going back to foreground.
+         */
+        if( Config.app_platform == 'pwa' ) {
+            document.addEventListener( 'visibilitychange', function() {
+                var state = document.visibilityState == "hidden" ? 'hidden' : 'visible';
+                sendVisibilityEvent( state );
+            }, false );
+        } else {
+            document.addEventListener( 'pause', function() { sendVisibilityEvent( 'hidden' ); }, false );
+            document.addEventListener( 'resume', function() { sendVisibilityEvent( 'visible' ); }, false );
+        }
     }
 });
