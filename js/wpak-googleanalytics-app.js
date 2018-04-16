@@ -9,8 +9,8 @@ define( [ 'core/theme-app', 'addons/wpak-addon-googleanalytics/js/wpak-googleana
          */
         function sendVisibilityEvent( state ) {
             var category = 'app';
-            var action = 'visibility-change';
-            var label = state;
+            var action = state == 'hidden' ? 'go-to-background' : 'return-from-background';
+            var label = null;
             var value = null;
             var context = {};
 
