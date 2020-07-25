@@ -47,12 +47,12 @@ if ( !class_exists( 'WpakGoogleAnalyticsAdmin' ) ) {
                 <div class="field-group">
                     <label for="wpak_googleanalytics_trackingid"><?php _e( 'Tracking ID', WpAppKitGoogleAnalytics::i18n_domain ) ?></label>
                     <input id="wpak_googleanalytics_trackingid" type="text" name="wpak_app_options[googleanalytics][trackingid]" value="<?php echo $options['googleanalytics']['trackingid'] ?>" />
-                    <span class="description"><?php // TODO: add a description here? _e( '', WpAppKitGoogleAnalytics::i18n_domain ) ?></span>
+                    <span class="description"><?php _e( 'Tracking ID comes from Google Analytics. You can find it in your account\'s administration (see <a href="https://support.google.com/analytics/answer/1008080?visit_id=1-636585187525600793-421216421&rd=1&hl=en">this Analytics Help page</a> for more details).', WpAppKitGoogleAnalytics::i18n_domain ); ?></span>
                 </div>
                 <div class="field-group fix-align">
                     <label for="wpak_googleanalytics_track_errors"><?php _e( 'Track errors', WpAppKitGoogleAnalytics::i18n_domain ) ?></label>
                     <input id="wpak_googleanalytics_track_errors" type="checkbox" name="wpak_app_options[googleanalytics][track_errors]" <?php echo !empty( $options['googleanalytics']['track_errors'] ) ? 'checked="checked"' : '' ?> value="1" />
-                    <span class="description"><?php // TODO: add a description here? _e( '', WpAppKitGoogleAnalytics::i18n_domain ) ?></span>
+                    <span class="description"><?php _e( 'If this is activated, each error happening during app execution (e.g. AJAX request error) will be reported to Google Analytics as an event. This event will have a \'feedback\' category and its action will be prefixed by \'error/\'. If possible, the error message will be included as the event\'s label.', WpAppKitGoogleAnalytics::i18n_domain ); ?></span>
                 </div>
             </div>
             <?php
