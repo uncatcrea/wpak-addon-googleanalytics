@@ -4,11 +4,11 @@ Google Analytics for WP-AppKit is an add-on that extends the WP-AppKit plugin to
 
 Google Analytics for WP-AppKit comes with the following features:
 
-* iOS and Android support
+* Android support
 * Google Analytics SDK installation
 * Auto-tagging (ie. screens and events are automatically tracked with convenient naming)
 
-This add-on currently supports and is tested with iOS and Android only.
+This add-on currently supports and is tested with Android only.
 
 # Is There A Documentation?
 
